@@ -2,7 +2,7 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 // const { getCommand, GetCommandOutput } = require("@aws-sdk/client-dynamodb");
 // SERVICES
-import * as userService from "../user";
+import * as userService from "../users.service";
 
 // Mock the DynamoDB client
 jest.mock("@aws-sdk/client-dynamodb");

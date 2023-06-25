@@ -1,7 +1,7 @@
 // TYPES
 import type { AWS } from "@serverless/typescript";
 // FUNCTIONS
-import { CreateUser, GetUser } from "@functions/users";
+import { manageUsers } from "@functions/users";
 
 const serverlessConfiguration: AWS = {
   service: "serverless-node-api",
@@ -21,8 +21,7 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
     },
   },
-  // import the function via paths
-  functions: { CreateUser, GetUser },
+  functions: { manageUsers },
   package: { individually: true },
   custom: {
     esbuild: {
@@ -34,6 +33,19 @@ const serverlessConfiguration: AWS = {
       define: { "require.resolve": undefined },
       platform: "node",
       concurrency: 10,
+      watch: {
+        pattern: ["src/**/*.ts"],
+        ignore: [
+          "src/**/*.test.ts",
+          "src/**/*.router.ts",
+          "src/functions/**/index.ts",
+        ],
+      },
+    },
+    "serverless-offline": {
+      httpPort: 4000,
+      noAuth: true,
+      noPrependStageInUrl: true,
     },
   },
 };

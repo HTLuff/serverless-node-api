@@ -1,42 +1,20 @@
-import { createUserSchema, getUserSchema } from "./schema";
+// import { createUserSchema, getUserSchema } from "./schema";
 import { handlerPath } from "@libs/handler-resolver";
+import routers from "./users.router";
 
-const CreateUser = {
-  handler: `${handlerPath(__dirname)}/handler.createUser`,
-  events: [
-    {
+export const manageUsers = {
+  handler: `${handlerPath(__dirname)}/handler.main`,
+  events: routers.map((router) => {
+    return {
       http: {
-        method: "post",
-        path: "users",
+        path: router.resource,
+        method: router.method,
         request: {
           schemas: {
-            "application/json": createUserSchema,
+            "application/json": router.schema,
           },
         },
       },
-    },
-  ],
+    };
+  }),
 };
-const GetUser = {
-  handler: `${handlerPath(__dirname)}/handler.getUser`,
-  events: [
-    {
-      http: {
-        method: "get",
-        path: "users/{id}",
-        request: {
-          parameters: {
-            paths: {
-              id: true,
-            },
-          },
-          schemas: {
-            "application/json": getUserSchema,
-          },
-        },
-      },
-    },
-  ],
-};
-
-export { CreateUser, GetUser };

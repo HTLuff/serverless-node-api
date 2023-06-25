@@ -45,3 +45,13 @@ function buildResponse(statusCode: number, body: any): Response {
     body: JSON.stringify(body),
   };
 }
+
+export function formatJSONResponse<T>(
+  response: T,
+  statusCode = 200
+): APIGatewayProxyResult {
+  return {
+    statusCode,
+    body: JSON.stringify(response),
+  };
+}

@@ -25,6 +25,6 @@ export const call = async (
         throw new Error("No Service found.");
     }
   } catch (error) {
-    throw error;
+    throw error(error);
   }
 };
