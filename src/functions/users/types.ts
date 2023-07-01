@@ -20,6 +20,7 @@ export type CreateUserInput = {
   last_name: string;
   source_language: string;
   target_language: string;
+  // Secondary index
   email: string;
   password: string;
 };

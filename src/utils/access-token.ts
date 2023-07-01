@@ -1,5 +1,6 @@
 // EXTERNAL
 const jwt = require("jsonwebtoken");
+import AppError from "@libs/app.error";
 // CONSTS
 import * as consts from "../consts";
 
@@ -26,6 +27,10 @@ export function validateAccessToken(accessToken: string) {
     // Return the decoded token
     return decodedToken;
   } catch (error) {
-    throw new Error("Invalid access token");
+    throw new AppError({
+      statusCode: 401,
+      message: "permission denied",
+      cause: "invalid access token",
+    });
   }
 }

@@ -9,15 +9,13 @@ export function createUser(
   event: ICustomAPIGatewayProxyEvent<ICreateMovieDTO>
 ) {
   const { body } = event;
-
   return userService.createUser(body);
 }
 
 export function getUsers(event: ICustomAPIGatewayProxyEvent) {
-  const id = Number(event.pathParameters?.id);
   const nextPageToken = event.queryStringParameters?.nextPageToken;
 
-  return userService.getUsers(id, nextPageToken);
+  return userService.getUsers(nextPageToken);
 }
 
 export function getUser(event: ICustomAPIGatewayProxyEvent) {

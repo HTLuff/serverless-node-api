@@ -18,6 +18,7 @@ export const createUser = async (input: CreateUserInput) => {
   try {
     if (!isValidEmail(input.email)) {
       throw new AppError({
+        statusCode: 400,
         message: "invalid email",
         cause: "please enter a valid email address",
       });
@@ -29,7 +30,7 @@ export const createUser = async (input: CreateUserInput) => {
         id: randomUUID(),
         first_name: input.first_name,
         last_name: input.last_name,
-        subscription: "trial",
+        subscription: "trial", // trial | trial-lapsed | subscribed | unsubscribed
         unsubscribe_reason: undefined,
         deleted_at: undefined,
         created_at: new Date().toISOString(),
@@ -55,6 +56,7 @@ export const getUser = async (input: GetUserInput) => {
     // Validation
     if (!input.id) {
       throw new AppError({
+        statusCode: 400,
         message: "invalid request",
         cause: "missing required field: id",
       });
@@ -101,6 +103,7 @@ export const deleteUser = async (input: DeleteUserInput) => {
     // Validation
     if (!input.id) {
       throw new AppError({
+        statusCode: 400,
         message: "invalid request",
         cause: "missing required field: id",
       });
@@ -124,6 +127,7 @@ export const updateUser = async (input: UpdateUserInput) => {
     // Validation
     if (!input.id) {
       throw new AppError({
+        statusCode: 400,
         message: "invalid request",
         cause: "missing required field: id",
       });

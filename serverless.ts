@@ -1,7 +1,8 @@
 // TYPES
 import type { AWS } from "@serverless/typescript";
 // FUNCTIONS
-import { manageUsers } from "@functions/users";
+import { handleUsers } from "@functions/users";
+import { handleAuth } from "@functions/auth";
 
 const serverlessConfiguration: AWS = {
   service: "serverless-node-api",
@@ -21,7 +22,7 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
     },
   },
-  functions: { manageUsers },
+  functions: { handleUsers, handleAuth },
   package: { individually: true },
   custom: {
     esbuild: {

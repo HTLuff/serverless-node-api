@@ -1,8 +1,8 @@
 // import { createUserSchema, getUserSchema } from "./schema";
 import { handlerPath } from "@libs/handler-resolver";
-import routers from "./users.router";
+import routers from "./auth.router";
 
-export const handleUsers = {
+export const handleAuth = {
   handler: `${handlerPath(__dirname)}/handler.main`,
   events: routers.map((router) => {
     return {

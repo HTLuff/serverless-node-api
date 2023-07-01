@@ -13,45 +13,17 @@ export type ValidatedEventAPIGatewayProxyEvent<S> = Handler<
   APIGatewayProxyResult
 >;
 
-interface Response {
-  statusCode: number;
-  body: string;
-  headers: {
-    "Access-Control-Allow-Origin": string;
-    "Access-Control-Allow-Credentials": boolean;
-    "Content-Type": string;
-  };
-}
-export function success(statusCode: number, body: any): Response {
-  return buildResponse(statusCode || 200, body);
-}
-
-export function failure(statusCode: number, body: any) {
-  console.error("Error:", body);
-  /**
-   * Add call to events DB to track errors
-   */
-  return buildResponse(statusCode || 400, body);
-}
-
-function buildResponse(statusCode: number, body: any): Response {
-  return {
-    statusCode: statusCode,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": true,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  };
-}
-
 export function formatJSONResponse<T>(
   response: T,
   statusCode = 200
 ): APIGatewayProxyResult {
   return {
     statusCode,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(response),
   };
 }
