@@ -79,13 +79,18 @@ export const getUser = async (input: GetUserInput) => {
   // return logic.getUser(userData);
 };
 
-export const getUsers = async () => {
+export const getUsers = async (nextPageToken?: string) => {
   try {
     // Validation
-
+    const limit = 10;
+    const lastEvaluatedKey: string = nextPageToken
+      ? JSON.parse(nextPageToken)
+      : undefined;
     // AWS libs interaction
     const dynamoParams = {
       TableName: process.env.USERS_TABLE,
+      Limit: limit,
+      ExclusiveStartKey: lastEvaluatedKey,
     };
     const response = await aws.call("dynamodb", "get", dynamoParams);
     // return data
@@ -130,6 +135,13 @@ export const updateUser = async (input: UpdateUserInput) => {
         statusCode: 400,
         message: "invalid request",
         cause: "missing required field: id",
+      });
+    }
+    if (!input.source_language || !input.target_language) {
+      throw new AppError({
+        statusCode: 400,
+        message: "invalid request",
+        cause: "user properties weren't found",
       });
     }
     // AWS libs interaction

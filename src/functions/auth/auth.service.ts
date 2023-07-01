@@ -5,14 +5,17 @@ import AppError from "@libs/app.error";
 import * as aws from "@libs/aws-sdk";
 // UTILS
 import { generateAccessToken } from "@utils/access-token";
+// TYPES
+import { LoginInput } from "./types";
 
-export async function login(email: string, password: string) {
+export async function login(input: LoginInput) {
+  //email: string, password: string
   try {
     // Retrieve the user item from DynamoDB
     const dynamoParams = {
       TableName: process.env.USERS_TABLE,
       Key: {
-        email,
+        email: input.email,
       },
     };
 
@@ -28,7 +31,7 @@ export async function login(email: string, password: string) {
 
     // Compare the hashed password with the provided password
     const passwordMatch = await bcrypt.compare(
-      password,
+      input.password,
       response.password_hash
     );
 

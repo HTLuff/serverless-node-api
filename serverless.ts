@@ -48,6 +48,14 @@ const serverlessConfiguration: AWS = {
       noAuth: true,
       noPrependStageInUrl: true,
     },
+    dynamodb: {
+      start: {
+        port: 5000,
+        inMemory: true,
+        migrate: true,
+      },
+      stages: "dev",
+    },
   },
 };
 
