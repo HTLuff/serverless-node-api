@@ -1,5 +1,5 @@
 // EXTERNAL
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 // LIBS
 import AppError from "@libs/app.error";
 import * as aws from "@libs/aws-sdk";

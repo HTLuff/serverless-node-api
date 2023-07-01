@@ -1,6 +1,6 @@
 // EXTERNAL
 import { randomUUID } from "crypto";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 // LIBS
 import * as aws from "@libs/aws-sdk";
 import AppError from "@libs/app.error";
