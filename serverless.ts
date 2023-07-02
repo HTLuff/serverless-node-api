@@ -3,6 +3,8 @@ import type { AWS } from "@serverless/typescript";
 // FUNCTIONS
 import { handleUsers } from "@functions/users";
 import { handleAuth } from "@functions/auth";
+// RESOURCES
+import { DynamoTables } from "src/resources/dynamo";
 
 const serverlessConfiguration: AWS = {
   service: "serverless-node-api",
@@ -56,6 +58,9 @@ const serverlessConfiguration: AWS = {
       },
       stages: "dev",
     },
+  },
+  resources: {
+    Resources: DynamoTables,
   },
 };
 

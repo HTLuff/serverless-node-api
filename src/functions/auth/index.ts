@@ -9,11 +9,11 @@ export const handleAuth = {
       http: {
         path: router.resource,
         method: router.method,
-        request: {
-          schemas: {
-            "application/json": router.schema,
-          },
-        },
+        // request: {
+        //   schemas: {
+        //     "application/json": router.schema,
+        //   },
+        // },
       },
     };
   }),

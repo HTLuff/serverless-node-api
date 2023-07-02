@@ -10,46 +10,46 @@ import { LoginInput } from "./types";
 
 export async function login(input: LoginInput) {
   //email: string, password: string
-  try {
-    // Retrieve the user item from DynamoDB
-    const dynamoParams = {
-      TableName: process.env.USERS_TABLE,
-      Key: {
-        email: input.email,
-      },
-    };
+  // try {
+  // Retrieve the user item from DynamoDB
+  const dynamoParams = {
+    TableName: process.env.USERS_TABLE,
+    Key: {
+      email: input.email,
+    },
+  };
 
-    const response = await aws.call("dynamodb", "get", dynamoParams);
+  const response = await aws.call("dynamodb", "get", dynamoParams);
 
-    if (!response.id) {
-      throw new AppError({
-        statusCode: 401,
-        message: "problem logging in",
-        cause: "permission denied",
-      });
-    }
-
-    // Compare the hashed password with the provided password
-    const passwordMatch = await bcrypt.compare(
-      input.password,
-      response.password_hash
-    );
-
-    if (!passwordMatch) {
-      throw new AppError({
-        statusCode: 401,
-        message: "problem logging in",
-        cause: "permission denied",
-      });
-    }
-
-    // Generate an access token (JWT)
-    const accessToken = generateAccessToken(response.id, response.email);
-
-    return { accessToken };
-  } catch (error) {
-    throw error(error);
+  if (!response.id) {
+    throw new AppError({
+      statusCode: 401,
+      message: "problem logging in",
+      cause: "permission denied",
+    });
   }
+
+  // Compare the hashed password with the provided password
+  const passwordMatch = await bcrypt.compare(
+    input.password,
+    response.password_hash
+  );
+
+  if (!passwordMatch) {
+    throw new AppError({
+      statusCode: 401,
+      message: "problem logging in",
+      cause: "permission denied",
+    });
+  }
+
+  // Generate an access token (JWT)
+  const accessToken = generateAccessToken(response.id, response.email);
+
+  return { accessToken };
+  // } catch (error) {
+  //   throw error(error);
+  // }
 }
 
 export async function changePassword() {

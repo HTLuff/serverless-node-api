@@ -6,7 +6,7 @@ import * as controller from "./users.controller";
 const routers: IRouter[] = [
   {
     method: "GET",
-    resource: `/users/`,
+    resource: `/users`,
     handler: controller.getUsers,
     schema: "",
     authorize: true,

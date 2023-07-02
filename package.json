@@ -5,7 +5,7 @@
   "main": "serverless.ts",
   "scripts": {
     "test": "npx jest test",
-    "start": "npx sls offline --httpPort 3001",
+    "start": "npx serverless offline start ",
     "commit": "commit",
     "schema": "typescript-json-schema --noExtraProps --required --refs false -o ./types.schema.json  \"./lib/Types.d.ts\" \"*\""
   },

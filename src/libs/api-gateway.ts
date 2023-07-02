@@ -53,10 +53,9 @@ export function createAPIGatewayProxyHandler(
         ...event,
         body: event.body ? JSON.parse(event.body) : {},
       });
-
-      return formatJSONResponse(result);
+      return formatJSONResponse(result, 200);
     } catch (err: unknown) {
-      console.error(err);
+      // console.error(err);
 
       const error = err as Error;
       let statusCode = 500;
