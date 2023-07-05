@@ -6,14 +6,14 @@ For detailed instructions, please refer to the [documentation](https://www.serve
 
 ## What does this Repo cover
 
-✅ Serverless Typescript
-✅ NodeJS CRUD API with Lambda functions through API Gateway
-✅ DynamoDB data storage
-✅ Authentication with Cognito
-✅ S3 buckets and Lambda triggers
-✅ SNS topics
-✅ SQS messages
-✅ Unit and offline testing
+- ✅ Serverless Typescript
+- ✅ NodeJS CRUD API with Lambda functions through API Gateway
+- ✅ DynamoDB data storage
+- ✅ Authentication with Cognito
+- ✅ S3 buckets and Lambda triggers
+- ✅ SNS topics
+- ✅ SQS messages
+- ✅ Unit and offline testing
 
 ## Installation/deployment instructions
 
@@ -110,4 +110,4 @@ Any tsconfig.json can be used, but if you do, set the environment variable `TS_N
 [] add husky
 [] add local testing method
 [] add pagination for GET /users
-[] 
+[]
