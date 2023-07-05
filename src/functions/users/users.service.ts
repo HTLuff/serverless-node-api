@@ -15,6 +15,20 @@ import {
 import { isValidEmail } from "@utils/email-validator";
 
 export const createUser = async (input: CreateUserInput) => {
+  if (
+    !input.email ||
+    !input.password ||
+    !input.first_name ||
+    !input.last_name ||
+    !input.source_language ||
+    !input.target_language
+  ) {
+    throw new AppError({
+      statusCode: 400,
+      message: "missing properties",
+      cause: "",
+    });
+  }
   if (!isValidEmail(input.email)) {
     throw new AppError({
       statusCode: 400,
@@ -24,7 +38,8 @@ export const createUser = async (input: CreateUserInput) => {
   }
   const passwordHash = await bcrypt.hash(input.password, 10);
   const dynamoParams = {
-    TableName: process.env.USERS_TABLE,
+    // TableName: process.env.USERS_TABLE,
+    TableName: "some-table-name",
     Item: {
       id: randomUUID(),
       first_name: input.first_name,

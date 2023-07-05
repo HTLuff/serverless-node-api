@@ -45,7 +45,6 @@ export function createAPIGatewayProxyHandler(
 
       // test<
       if (foundRouter.authorize) {
-        console.log("JWT validation here.");
         const accessToken = event.headers.authorization; // Example: Bearer <access_token>
         validateAccessToken(accessToken);
       }
@@ -63,7 +62,10 @@ export function createAPIGatewayProxyHandler(
         statusCode = error.statusCode;
       }
 
-      return formatJSONResponse({ message: error.message }, statusCode);
+      return formatJSONResponse(
+        { message: error.message, cause: error.cause },
+        statusCode
+      );
     }
   };
 }

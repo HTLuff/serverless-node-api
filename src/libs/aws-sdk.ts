@@ -17,10 +17,6 @@ export const call = async (
         const dynamoDb = new AWS.DynamoDB.DocumentClient();
         return await dynamoDb[action](params).promise();
       }
-      case "lambda": {
-        const lambda = new AWS.Lambda();
-        return await lambda[action](params).promise();
-      }
       default:
         throw new Error("No Service found.");
     }
