@@ -6,7 +6,7 @@ export const handleUsers = {
   handler: `${handlerPath(__dirname)}/handler.main`,
   events: routers.map((router) => {
     return {
-      http: {
+      httpApi: {
         path: router.resource,
         method: router.method,
         // request: {

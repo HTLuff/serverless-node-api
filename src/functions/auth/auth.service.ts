@@ -9,8 +9,6 @@ import { generateAccessToken } from "@utils/access-token";
 import { LoginInput } from "./types";
 
 export async function login(input: LoginInput) {
-  //email: string, password: string
-  // try {
   // Retrieve the user item from DynamoDB
   const dynamoParams = {
     TableName: process.env.USERS_TABLE,
@@ -47,9 +45,6 @@ export async function login(input: LoginInput) {
   const accessToken = generateAccessToken(response.id, response.email);
 
   return { accessToken };
-  // } catch (error) {
-  //   throw error(error);
-  // }
 }
 
 export async function changePassword() {

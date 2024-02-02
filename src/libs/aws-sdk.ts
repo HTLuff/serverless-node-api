@@ -9,12 +9,13 @@ export const call = async (
 ): Promise<any> => {
   try {
     switch (service) {
-      case "s3": {
-        const s3 = new AWS.S3();
-        return await s3[action](params).promise();
-      }
       case "dynamoDb": {
-        const dynamoDb = new AWS.DynamoDB.DocumentClient();
+        const dynamoDb = process.env.IS_OFFLINE
+          ? new AWS.DynamoDB.DocumentClient({
+              region: "localhost",
+              endpoint: "http://localhost:5000",
+            })
+          : new AWS.DynamoDB.DocumentClient();
         return await dynamoDb[action](params).promise();
       }
       default:

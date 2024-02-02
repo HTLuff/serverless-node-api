@@ -9,7 +9,11 @@ import { DynamoTables } from "src/resources/dynamo";
 const serverlessConfiguration: AWS = {
   service: "serverless-node-api",
   frameworkVersion: "3",
-  plugins: ["serverless-esbuild", "serverless-offline"],
+  plugins: [
+    "serverless-esbuild",
+    "serverless-offline",
+    "serverless-dynamodb-local",
+  ],
   provider: {
     name: "aws",
     runtime: "nodejs14.x",
@@ -50,6 +54,7 @@ const serverlessConfiguration: AWS = {
       httpPort: 4000,
       noAuth: true,
       noPrependStageInUrl: true,
+      ignoreJWTSignature: true,
     },
     dynamodb: {
       start: {
