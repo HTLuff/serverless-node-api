@@ -74,5 +74,5 @@ TBD
 
 ## Roadmap
 
-- [] add custom authorizer to lambda, instead of using api-gateway lib
-- [] add pagination for GET /users
+- [ ] add custom authorizer to lambda, instead of using api-gateway lib
+- [ ] add pagination for GET /users
