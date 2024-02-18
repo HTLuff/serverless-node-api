@@ -1,4 +1,3 @@
-// import { createUserSchema, getUserSchema } from "./schema";
 import { handlerPath } from "@libs/handler-resolver";
 import routers from "./users.router";
 
@@ -9,11 +8,11 @@ export const handleUsers = {
       httpApi: {
         path: router.resource,
         method: router.method,
-        // request: {
-        //   schemas: {
-        //     "application/json": router.schema,
-        //   },
-        // },
+        request: {
+          schemas: {
+            "application/json": router.schema,
+          },
+        },
       },
     };
   }),

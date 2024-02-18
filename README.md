@@ -25,7 +25,14 @@ For detailed instructions, please refer to the [documentation](https://www.serve
 
 | Methods | Endpoint | Input | Output         |
 | ------- | -------- | ----- | -------------- |
-| POST    | `/login` | `{}`  | `{id: string}` |
+| POST    | `/users` | `{}`  | `{id: string}` |
+| GET    | `/users` | `{}`  | `{id: string}` |
+| GET    | `/users` | `{}`  | `{id: string}` |
+| DELETE    | `/users/{id}` | `{}`  | `{id: string}` |
+| PUT    | `/users/{id}` | `{}`  | `{id: string}` |
+| POST    | `/auth/login` | `{}`  | `{id: string}` |
+| POST    | `/auth/change-password` | `{}`  | `{id: string}` |
+| POST    | `/auth/unsubscribe` | `{}`  | `{id: string}` |
 
 ### JWT Auth flow
 
@@ -39,19 +46,19 @@ For detailed instructions, please refer to the [documentation](https://www.serve
 
 ### Test Locally
 
-In order to test the hello function locally, run the following command:
+In order to test the users function locally, run the following command:
 
-- `npx sls invoke local -f hello --path src/functions/hello/mock.json` if you're using NPM
-- `yarn sls invoke local -f hello --path src/functions/hello/mock.json` if you're using Yarn
+- `npx sls invoke local -f users --path src/functions/users/mock.json` if you're using NPM
+- `yarn sls invoke local -f users --path src/functions/users/mock.json` if you're using Yarn
 
 Check the [sls invoke local command documentation](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/) for more information.
 
 ### Test Remotely
 
-Copy and replace your `url` - found in Serverless `deploy` command output - and `name` parameter in the following `curl` command in your terminal or in Postman to test your newly deployed application.
+Copy and replace your `url` - found in Serverless `deploy` command output - and `name` parameter in the following `curl` command in your terminal or in Postman to test the newly deployed application.
 
 ```bash
-curl --location --request POST 'https://myApiEndpoint/dev/hello' \
+curl --location --request POST 'https://myApiEndpoint/dev/users/signup' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "name": "Harry"
@@ -75,7 +82,4 @@ TBD
 ## Roadmap
 
 - [ ] add custom authorizer to lambda, instead of using api-gateway lib
-- [ ] add pagination for GET /users
-- [ ] testing plan
-- [ ] add SAM, Azure, and GCP. Make each SOLID service platform-specific.
-- [ ] add password reset flow
+- [ ] add password reset flow with accompanying SES resources

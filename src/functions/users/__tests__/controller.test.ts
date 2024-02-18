@@ -1,138 +1,88 @@
-import {
-  APIGatewayProxyEventPathParameters,
-  APIGatewayProxyEventQueryStringParameters,
-} from "aws-lambda/trigger/api-gateway-proxy";
+import * as userController from "../users.controller";
+import * as userService from "@functions/users/users.service";
 
-import * as usersService from "@functions/users/users.service";
-import { IMoviesByYearResponse } from "@functions/users/users.service";
-import {
-  ICreateMovieDTO,
-  UpdateMovieInfoDTO,
-} from "@repositories/movie.repository";
-import { ICustomAPIGatewayProxyEvent } from "@libs/api-gateway";
-import { IMovie } from "@models/movie.model";
-import * as controller from "./movie.controller";
+jest.mock("@functions/users/users.service");
 
-describe("MovieController", () => {
-  describe("createMovie()", () => {
-    it("should return create a new movie", async () => {
-      const newMovie = "new-movie" as unknown as IMovie;
-      const dto = { title: "new-movie-title", year: 2000 } as ICreateMovieDTO;
-      jest
-        .spyOn(usersService, "createMovie")
-        .mockName("usersService.createMovie")
-        .mockResolvedValue(newMovie);
+describe("userController", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-      const actual = await controller.createMovie({
-        body: dto,
-      } as ICustomAPIGatewayProxyEvent<ICreateMovieDTO>);
+  describe("createUser", () => {
+    it("should call userService.createUser with the correct input", async () => {
+      const mockCreateUserInput = {
+        // Your mock input data for createUser function
+      };
+      const mockEvent = {
+        body: mockCreateUserInput,
+      };
 
-      expect(usersService.createMovie).toHaveBeenCalledWith(dto);
-      expect(actual).toBe(newMovie);
+      await userController.createUser(mockEvent);
+
+      expect(userService.createUser).toHaveBeenCalledWith(mockCreateUserInput);
     });
   });
 
-  describe("getMoviesByYear()", () => {
-    it("should return moves by year", async () => {
-      const movies = {
-        data: ["movies"] as unknown as IMovie[],
-        nextPageToken: "next-page-token",
-      } as IMoviesByYearResponse;
-      jest
-        .spyOn(usersService, "getMoviesByYear")
-        .mockName("usersService.getMoviesByYear")
-        .mockResolvedValue(movies);
-      const pathParameters = {
-        year: "2000",
-      } as APIGatewayProxyEventPathParameters;
-      const queryStringParameters = {
-        nextPageToken: "old-next-page-token",
-      } as APIGatewayProxyEventQueryStringParameters;
+  describe("getUsers", () => {
+    it("should call userService.getUsers with the correct input", async () => {
+      const mockEvent = {
+        queryStringParameters: {
+          nextPageToken: "mockNextPageToken",
+        },
+      };
 
-      const actual = await controller.getMoviesByYear({
-        pathParameters,
-        queryStringParameters,
-      } as ICustomAPIGatewayProxyEvent);
+      await userController.getUsers(mockEvent);
 
-      expect(usersService.getMoviesByYear).toHaveBeenCalledWith(
-        2000,
-        "old-next-page-token"
-      );
-      expect(actual).toBe(movies);
+      expect(userService.getUsers).toHaveBeenCalledWith("mockNextPageToken");
     });
   });
 
-  describe("getMovieDetail()", () => {
-    it("should return move detail", async () => {
-      const movie = "movie" as unknown as IMovie;
-      jest
-        .spyOn(usersService, "getMoviesByTitleAndYear")
-        .mockName("usersService.getMoviesByTitleAndYear")
-        .mockResolvedValue(movie);
-      const pathParameters = {
-        title: "Big Momma's House",
-        year: "2000",
-      } as APIGatewayProxyEventPathParameters;
+  describe("getUser", () => {
+    it("should call userService.getUser with the correct input", async () => {
+      const mockEvent = {
+        pathParameters: {
+          id: "mockUserId",
+        },
+      };
 
-      const actual = await controller.getMovieDetail({
-        pathParameters,
-      } as ICustomAPIGatewayProxyEvent);
+      await userController.getUser(mockEvent);
 
-      expect(usersService.getMoviesByTitleAndYear).toHaveBeenCalledWith(
-        "Big Momma's House",
-        2000
-      );
-      expect(actual).toBe(movie);
+      expect(userService.getUser).toHaveBeenCalledWith({ id: "mockUserId" });
     });
   });
 
-  describe("deleteMovie()", () => {
-    it("should delete a movie by title and year", async () => {
-      jest
-        .spyOn(usersService, "deleteMovieByTitleAndYear")
-        .mockName("usersService.deleteMovieByTitleAndYear")
-        .mockResolvedValue();
+  describe("deleteUser", () => {
+    it("should call userService.deleteUser with the correct input", async () => {
+      const mockEvent = {
+        pathParameters: {
+          id: "mockUserId",
+        },
+      };
 
-      const pathParameters = {
-        title: "Big Momma's House",
-        year: "2000",
-      } as APIGatewayProxyEventPathParameters;
+      await userController.deleteUser(mockEvent);
 
-      await controller.deleteMove({
-        pathParameters,
-      } as ICustomAPIGatewayProxyEvent);
-
-      expect(usersService.deleteMovieByTitleAndYear).toHaveBeenCalledWith(
-        "Big Momma's House",
-        2000
-      );
+      expect(userService.deleteUser).toHaveBeenCalledWith({ id: "mockUserId" });
     });
   });
 
-  describe("updateMovieInfo()", () => {
-    it("should update movie info by title and year", async () => {
-      const updatedMovie = "updated-movie" as unknown as IMovie;
-      jest
-        .spyOn(usersService, "updateMovieInfoByTitleAndYear")
-        .mockName("usersService.updateMovieInfoByTitleAndYear")
-        .mockResolvedValue(updatedMovie);
-      const pathParameters = {
-        title: "Big Momma's House",
-        year: "2000",
-      } as APIGatewayProxyEventPathParameters;
-      const info = "new-info" as unknown as UpdateMovieInfoDTO;
+  describe("updateUser", () => {
+    it("should call userService.updateUser with the correct input", async () => {
+      const mockUpdateUserInput = {
+        // Your mock input data for updateUser function
+      };
+      const mockEvent = {
+        body: mockUpdateUserInput,
+        pathParameters: {
+          id: "mockUserId",
+        },
+      };
 
-      const actual = await controller.updateMovieInfo({
-        body: info,
-        pathParameters,
-      } as ICustomAPIGatewayProxyEvent<UpdateMovieInfoDTO>);
+      await userController.updateUser(mockEvent);
 
-      expect(usersService.updateMovieInfoByTitleAndYear).toHaveBeenCalledWith(
-        "Big Momma's House",
-        2000,
-        info
-      );
-      expect(actual).toBe(updatedMovie);
+      expect(userService.updateUser).toHaveBeenCalledWith({
+        ...mockUpdateUserInput,
+        id: "mockUserId",
+      });
     });
   });
 });

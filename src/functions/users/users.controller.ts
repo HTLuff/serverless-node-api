@@ -1,8 +1,4 @@
 import { ICustomAPIGatewayProxyEvent } from "@libs/api-gateway";
-// import {
-//   ICreateMovieDTO,
-//   UpdateMovieInfoDTO,
-// } from "@repositories/movie.repository";
 import * as userService from "@functions/users/users.service";
 import { CreateUserInput, UpdateUserInput } from "./types";
 

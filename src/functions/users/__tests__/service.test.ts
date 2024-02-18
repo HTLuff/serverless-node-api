@@ -38,6 +38,4 @@ describe("UserService", () => {
       await expect(userService.getUser(userId)).rejects.toThrow(errorMessage);
     });
   });
-
-  // Add more test cases for other error scenarios
 });

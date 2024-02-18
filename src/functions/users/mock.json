@@ -1,0 +1,8 @@
+{
+  "body": "{\"email\":\"test@example.com\",\"password\":\"password\"}",
+  "httpMethod": "POST",
+  "path": "/users",
+  "queryStringParameters": {
+    "nextPageToken": "abc123"
+  }
+}

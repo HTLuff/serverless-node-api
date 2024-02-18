@@ -79,7 +79,6 @@ export const getUser = async (input: GetUserInput) => {
     },
   };
   const response = await aws.call("dynamodb", "get", dynamoParams);
-  // return data
   return response;
 
   // Perform any necessary validation or transformations
